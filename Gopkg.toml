@@ -1,0 +1,8 @@
+[[constraint]]
+  name = "github.com/labstack/echo"
+  version = "3.3.5"
+
+[[constraint]]
+  name = "gopkg.in/yaml.v2"
+
+

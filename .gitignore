@@ -1,0 +1,7 @@
+simple-proxy
+.DS_Store
+.idea
+/vendor
+log/*
+tmp
+*.coverprofile
