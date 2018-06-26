@@ -1,14 +1,15 @@
 package main
 
 import (
-"fmt"
-"flag"
-"net/http"
+	"flag"
+	"fmt"
+	"net/http"
 
-"github.com/labstack/echo"
-"github.com/labstack/echo/middleware"
-	"time"
 	"runtime"
+	"time"
+
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 var (
@@ -20,7 +21,7 @@ var startupTime = time.Now().Unix()
 //go build && ./upstream -name echo-1 -port 3001 && ./upstream -name echo-2 -port 3002
 
 func main() {
-	name := flag.String("name","echo","server name")
+	name := flag.String("name", "echo", "server name")
 	port := flag.String("port", "3000", "server port")
 	flag.Parse()
 
@@ -33,17 +34,17 @@ func main() {
 
 	// Route => handler
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, fmt.Sprintf("Hello from upstream server %s!", *name))
+		return c.HTML(http.StatusOK, fmt.Sprintf("<div style='font-size: 8em;'>Hello from upstream server %s!</div>", *name))
 	})
-	e.GET("/alive", func (c echo.Context) error {
-			data := map[string]interface{}{
+	e.GET("/alive", func(c echo.Context) error {
+		data := map[string]interface{}{
 			"alive":         true,
+			"hostname":      "localhost:" + *port,
+			"serviceName":   *name,
 			"num_cpu":       runtime.NumCPU(),
 			"num_goroutine": runtime.NumGoroutine(),
 			"go_version":    runtime.Version(),
 			"build_date":    Buildstamp,
-			"hostname":      "localhost",
-			"serviceName":   "public-api",
 			"commit":        Commit,
 			"startup_time":  startupTime,
 		}

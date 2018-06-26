@@ -1,24 +1,25 @@
 package config
 
 import (
-	"gopkg.in/yaml.v2"
-	"path"
-	"io/ioutil"
 	"errors"
-	"strconv"
 	"fmt"
+	"io/ioutil"
+	"path"
+	"strconv"
+
+	"gopkg.in/yaml.v2"
 )
 
 type config struct {
 	ServiceName string
 	ServicePort int
-	Upstream   []string
+	Upstream    []string
 }
 
 func (c *config) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var aux struct {
-		ServiceName string `yaml:"service_name"`
-		ServicePort string `yaml:"service_port"`
+		ServiceName string   `yaml:"service_name"`
+		ServicePort string   `yaml:"service_port"`
 		Upstream    []string `yaml:"upstream"`
 	}
 
@@ -59,4 +60,3 @@ func ReadConfig() (*config, error) {
 
 	return &serviceConfig, nil
 }
-

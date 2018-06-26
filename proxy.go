@@ -1,14 +1,15 @@
 package main
 
 import (
-	"net/url"
 	"fmt"
+	"net/url"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
-	"github.com/clevertechru/simple-proxy/config"
 	"time"
+
+	"github.com/clevertechru/simple-proxy/config"
 )
 
 var (
@@ -24,9 +25,9 @@ func main() {
 		fmt.Printf("%s\n", resBody)
 	}))
 
-    config, err := config.ReadConfig()
-    if err != nil {
-    	panic(err)
+	config, err := config.ReadConfig()
+	if err != nil {
+		panic(err)
 	}
 
 	var targets []*middleware.ProxyTarget

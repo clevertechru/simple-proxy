@@ -1,5 +1,5 @@
 #!/bin/bash
 
-PKG_LIST=$(go list ./... | grep -v vendor | grep -v routers | grep -v github.com/clevertechru/public-api$ | sed -e "s=^=${GOPATH}/src/=")
+PKG_LIST=$(go list ./... | grep -v vendor | grep -v routers | grep -v github.com/clevertechru/simple-proxy$ | sed -e "s=^=${GOPATH}/src/=")
 gofmt -s -w ${PKG_LIST}
 goimports -w ${PKG_LIST}
