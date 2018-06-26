@@ -5,3 +5,4 @@ simple-proxy
 log/*
 tmp
 *.coverprofile
+config.dev.yml

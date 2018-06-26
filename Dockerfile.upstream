@@ -1,0 +1,22 @@
+FROM golang:1.10.3-alpine3.7
+
+MAINTAINER Vitali Makarov <405112@gmail.com>
+
+ENV PROJECT_PATH=/go/src/github.com/clevertechru/simple-proxy
+ENV NAME=upstream
+ENV PORT=3000
+
+WORKDIR $PROJECT_PATH
+
+COPY . .
+
+RUN apk upgrade --update --no-cache && \
+    apk add --update --no-cache bash curl git
+
+RUN ./install.sh
+WORKDIR $PROJECT_PATH/upstream
+RUN go build -ldflags "-X github.com/clevertechru/simple-proxy/upstream/main.Buildstamp=`date -u +%Y/%m/%d_%H:%M:%S` -X github.com/clevertechru/simple-proxy/upstream/main.Commit=`git rev-parse HEAD`"
+
+CMD ./upstream -name $NAME -port $PORT
+
+EXPOSE 3000

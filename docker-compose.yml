@@ -1,0 +1,33 @@
+version: '2'
+services:
+  proxy:
+    image: clevertechru/simple-proxy
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    links:
+      - upstream1
+      - upstream2
+    volumes:
+      - ./config.dev.yml:/go/src/github.com/clevertechru/simple-proxy/config.yml
+  upstream1:
+    image: clevertechru/simple-proxy-upstream
+    build:
+      context: .
+      dockerfile: Dockerfile.upstream
+    environment:
+      - NAME=echo-1
+      - PORT=3001
+    ports:
+      - '3001:3001'
+  upstream2:
+    image: clevertechru/simple-proxy-upstream
+    build:
+      context: .
+      dockerfile: Dockerfile.upstream
+    environment:
+      - NAME=echo-2
+      - PORT=3002
+    ports:
+      - '3002:3002'
