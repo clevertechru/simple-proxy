@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+DC=docker-compose.consul.yml
+
+docker-compose -f $DC kill && docker-compose -f $DC rm -f
+docker-compose -f $DC up --build -d && docker-compose -f $DC up --scale consul=3 --scale upstream=1

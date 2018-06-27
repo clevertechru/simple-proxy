@@ -1,0 +1,14 @@
+{
+    "service": {
+        "name": "app",
+        "tags": ["app","proxy"],
+        "port": 3000,
+        "check": {
+            "id": "app",
+            "name": "app on port 3000",
+            "http": "http://localhost:3000/alive",
+            "interval": "10s",
+            "timeout": "1s"
+        }
+    }
+}

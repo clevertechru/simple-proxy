@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv sh
+
+RELEASE=$(date '+%Y%m%d%H%M%S')
+
+cd /app
+
+#./upstream -name $NAME -port $PORT
+pwd
+ls -lah
+./upstream -name echo-$RELEASE -port 3000

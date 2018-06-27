@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+    consul:
+        image: smebberson/alpine-consul
+        restart: always
+        environment:
+            - CONSUL_BOOTSTRAP_DEBUG=true
+    consului:
+        image: smebberson/alpine-consul-ui
+        ports:
+            - 8500:8500
+        restart: always
+        environment:
+            - CONSUL_BOOTSTRAP_DEBUG=true
+    searchlb:
+        image: smebberson/alpine-consul-nginx
+        build: ./docker-consul/balancer
+        ports:
+            - 80:81
+        restart: always
+        environment:
+            - CONSUL_BOOTSTRAP_DEBUG=true
+    upstream:
+        image: clevertechru/consul-proxy-upstream
+        build: ./docker-consul/upstream
+        restart: always
+        environment:
+            - CONSUL_BOOTSTRAP_DEBUG=true
+            - NAME=echo
+            - PORT=3000
